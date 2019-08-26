@@ -1,0 +1,9 @@
+Example/
+node_modules/
+yarn.lock
+ios/build/
+android/build/
+*.iml
+.idea/
+.gitignore
+.gitattributes

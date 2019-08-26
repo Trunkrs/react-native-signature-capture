@@ -1,0 +1,37 @@
+{
+  "name": "@trunkrs/react-native-signature-capture",
+  "title": "React Native Signature Pad",
+  "version": "0.1.13",
+  "description": "A native signature plugin for iOS and Android.",
+  "main": "SignaturePad.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Trunkrs/react-native-signature-pad.git",
+    "baseUrl": "https://github.com/Trunkrs/react-native-signature-pad"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android",
+    "plugin",
+    "signature"
+  ],
+  "author": {
+    "name": "Trunkrs"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": ">=16.8",
+    "react-native": ">=0.59 <1.0"
+  },
+  "devDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.8.3",
+    "react-native": "^0.59.10"
+  }
+}

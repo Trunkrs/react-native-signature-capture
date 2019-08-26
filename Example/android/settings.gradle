@@ -1,0 +1,6 @@
+rootProject.name = 'Example'
+include ':@trunkrs_react-native-signature-capture'
+project(':@trunkrs_react-native-signature-capture').projectDir = new File(rootProject.projectDir, '../node_modules/@trunkrs/react-native-signature-capture/android')
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle
+
+include ':app'
