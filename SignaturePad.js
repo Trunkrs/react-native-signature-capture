@@ -64,10 +64,18 @@ class SignaturePad extends React.Component {
     }
   }
 
+  handleSaveEvent = (event) => {
+    const { nativeEvent } = event
+    const { onSave } = this.props
+
+    onSave(nativeEvent)
+  }
+
   render() {
     return (
       <TRNSignaturePad
         {...this.props}
+        onSaveEvent={this.handleSaveEvent}
         onChange={this.handleChange}
       />
     )

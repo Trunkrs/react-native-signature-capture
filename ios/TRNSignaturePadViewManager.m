@@ -21,7 +21,7 @@ RCT_EXPORT_VIEW_PROPERTY(outputFormat, NSString)
 RCT_EXPORT_VIEW_PROPERTY(maxSize, CGFloat)
 
 // Event Props
-RCT_EXPORT_VIEW_PROPERTY(onSave, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onSaveEvent, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onDragStart, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onDragEnd, RCTBubblingEventBlock)
 
@@ -55,11 +55,11 @@ RCT_EXPORT_METHOD(resetImage:(nonnull NSNumber *) reactTag)
 
 -(void) emitSaved: (nonnull NSDictionary*) result
 {
-    if (!signView.onSave) {
+    if (!signView.onSaveEvent) {
         return;
     }
-    
-    signView.onSave(result);
+
+    signView.onSaveEvent(result);
 }
 
 -(void) emitStartSigning
@@ -67,7 +67,7 @@ RCT_EXPORT_METHOD(resetImage:(nonnull NSNumber *) reactTag)
     if (!signView.onDragStart) {
         return;
     }
-    
+
     signView.onDragStart(nil);
 }
 
@@ -76,7 +76,7 @@ RCT_EXPORT_METHOD(resetImage:(nonnull NSNumber *) reactTag)
     if (!signView.onDragEnd) {
         return;
     }
-    
+
     signView.onDragEnd(nil);
 }
 

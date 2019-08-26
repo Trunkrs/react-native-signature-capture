@@ -11,7 +11,7 @@
 @property (nonatomic, strong) TRNSignaturePadViewManager *manager;
 
 // Event props
-@property (nonatomic, copy) RCTBubblingEventBlock onSave;
+@property (nonatomic, copy) RCTBubblingEventBlock onSaveEvent;
 @property (nonatomic, copy) RCTBubblingEventBlock onDragStart;
 @property (nonatomic, copy) RCTBubblingEventBlock onDragEnd;
 
