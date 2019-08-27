@@ -19,6 +19,8 @@ RCT_EXPORT_VIEW_PROPERTY(showTitleLabel, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(compressionQuality, double)
 RCT_EXPORT_VIEW_PROPERTY(outputFormat, NSString)
 RCT_EXPORT_VIEW_PROPERTY(maxSize, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(strokeColor, UIColor)
+RCT_EXPORT_VIEW_PROPERTY(backgroundColor, UIColor)
 
 // Event Props
 RCT_EXPORT_VIEW_PROPERTY(onSaveEvent, RCTBubblingEventBlock)

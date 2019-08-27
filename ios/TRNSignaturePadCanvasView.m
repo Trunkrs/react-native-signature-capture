@@ -15,14 +15,13 @@
 #define             MAXIMUM_VERTECES 100000
 
 
-static GLKVector3 StrokeColor = { 0, 0, 0 };
-static float clearColor[4] = { 1, 1, 1, 0 };
+static float clearColor[4] = { 0, 0, 0, 0 };
 
 // Vertex structure containing 3D point and color
 struct TRNSignaturePoint
 {
     GLKVector3        vertex;
-    GLKVector3        color;
+    GLKVector4        color;
 };
 typedef struct TRNSignaturePoint TRNSignaturePoint;
 
@@ -68,7 +67,7 @@ static GLKVector3 perpendicular(TRNSignaturePoint p1, TRNSignaturePoint p2) {
     return ret;
 }
 
-static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVector3 color) {
+static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVector4 color) {
     
     return (TRNSignaturePoint) {
         {
@@ -370,11 +369,11 @@ static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
     if (t.state == UIGestureRecognizerStateRecognized) {
         glBindBuffer(GL_ARRAY_BUFFER, dotsBuffer);
         
-        TRNSignaturePoint touchPoint = ViewPointToGL(l, self.bounds, (GLKVector3){1, 1, 1});
+        TRNSignaturePoint touchPoint = ViewPointToGL(l, self.bounds, (GLKVector4){1, 1, 1, 1});
         addVertex(&dotsLength, touchPoint);
         
         TRNSignaturePoint centerPoint = touchPoint;
-        centerPoint.color = StrokeColor;
+        centerPoint.color = effect.constantColor;
         addVertex(&dotsLength, centerPoint);
         
         static int segments = 20;
@@ -417,7 +416,7 @@ static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
     CGPoint v = [p velocityInView:self];
     CGPoint l = [p locationInView:self];
     
-    currentVelocity = ViewPointToGL(v, self.bounds, (GLKVector3){0,0,0});
+    currentVelocity = ViewPointToGL(v, self.bounds, (GLKVector4){0,0,0,1});
     float distance = 0.;
     if (previousPoint.x > 0) {
         distance = sqrtf((l.x - previousPoint.x) * (l.x - previousPoint.x) + (l.y - previousPoint.y) * (l.y - previousPoint.y));
@@ -436,7 +435,7 @@ static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
         previousPoint = l;
         previousMidPoint = l;
         
-        TRNSignaturePoint startPoint = ViewPointToGL(l, self.bounds, (GLKVector3){1, 1, 1});
+        TRNSignaturePoint startPoint = ViewPointToGL(l, self.bounds, (GLKVector4){1, 1, 1, 1});
         previousVertex = startPoint;
         previousThickness = penThickness;
         
@@ -466,14 +465,14 @@ static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
                 
                 CGPoint quadPoint = QuadraticPointInCurve(previousMidPoint, mid, previousPoint, (float)i / (float)(segments));
                 
-                TRNSignaturePoint v = ViewPointToGL(quadPoint, self.bounds, StrokeColor);
+                TRNSignaturePoint v = ViewPointToGL(quadPoint, self.bounds, effect.constantColor);
                 [self addTriangleStripPointsForPrevious:previousVertex next:v];
                 
                 previousVertex = v;
             }
         } else if (distance > 1.0) {
             
-            TRNSignaturePoint v = ViewPointToGL(l, self.bounds, StrokeColor);
+            TRNSignaturePoint v = ViewPointToGL(l, self.bounds, effect.constantColor);
             [self addTriangleStripPointsForPrevious:previousVertex next:v];
             
             previousVertex = v;
@@ -485,7 +484,7 @@ static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
         
     } else if (p.state == UIGestureRecognizerStateEnded | p.state == UIGestureRecognizerStateCancelled) {
         
-        TRNSignaturePoint v = ViewPointToGL(l, self.bounds, (GLKVector3){1, 1, 1});
+        TRNSignaturePoint v = ViewPointToGL(l, self.bounds, (GLKVector4){1, 1, 1, 1});
         addVertex(&length, v);
         
         previousVertex = v;
@@ -497,19 +496,19 @@ static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
 }
 
 
-- (void)setStrokeColor:(UIColor *)strokeColor {
-    _strokeColor = strokeColor;
-    [self updateStrokeColor];
+- (void)setStrokeColor:(UIColor *)color {
+    [self updateStrokeColor: color];
 }
 
 
 #pragma mark - Private
 
-- (void)updateStrokeColor {
+- (void)updateStrokeColor: (UIColor*)color {
     CGFloat red, green, blue, alpha, white;
-    if (effect && self.strokeColor && [self.strokeColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
+    
+    if (effect && color && [color getRed:&red green:&green blue:&blue alpha:&alpha]) {
         effect.constantColor = GLKVector4Make(red, green, blue, alpha);
-    } else if (effect && self.strokeColor && [self.strokeColor getWhite:&white alpha:&alpha]) {
+    } else if (effect && color && [color getWhite:&white alpha:&alpha]) {
         effect.constantColor = GLKVector4Make(white, white, white, alpha);
     } else effect.constantColor = GLKVector4Make(0,0,0,1);
 }
@@ -543,8 +542,7 @@ static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
     
     effect = [[GLKBaseEffect alloc] init];
     
-    [self updateStrokeColor];
-    
+    [self updateStrokeColor: nil];
     
     glDisable(GL_DEPTH_TEST);
     
@@ -603,7 +601,7 @@ static TRNSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
         
         TRNSignaturePoint stripPoint = {
             { p1.x + difX, p1.y + difY, 0.0 },
-            StrokeColor
+            effect.constantColor
         };
         addVertex(&length, stripPoint);
         

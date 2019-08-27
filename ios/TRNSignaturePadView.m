@@ -23,6 +23,8 @@
     double _compressionQuality;
     NSString *_outputFormat;
     CGFloat _maxSize;
+    UIColor* _strokeColor;
+    UIColor* _backgroundColor;
 }
 
 @synthesize sign;
@@ -59,6 +61,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
     if (!_loaded) {
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:)
@@ -72,6 +75,9 @@
                 initWithFrame: CGRectMake(0, 0, screen.width, screen.height)
                 context: _context];
         sign.manager = manager;
+        
+        [sign setStrokeColor: _strokeColor];
+        [sign setBackgroundColor: _backgroundColor];
         
         [self addSubview:sign];
         
@@ -200,6 +206,22 @@
 
 - (void)setMaxSize:(CGFloat)maxSize {
     _maxSize = maxSize;
+}
+
+-(void)setStrokeColor: (UIColor*) color {
+    _strokeColor = color;
+    
+    if (sign != nil) {
+        [sign setStrokeColor:color];
+    }
+}
+
+-(void)setBackgroundColor: (UIColor*) color {
+    _backgroundColor = color;
+    
+    if (sign != nil) {
+        [sign setBackgroundColor:color];
+    }
 }
 
 -(void) saveImage {

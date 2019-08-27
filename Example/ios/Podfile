@@ -27,7 +27,7 @@ target 'Example' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-signature-pad', :path => '../node_modules/@trunkrs/react-native-signature-capture'
+  pod 'react-native-signature-pad', :path => '../..'
 
   target 'ExampleTests' do
     inherit! :search_paths
