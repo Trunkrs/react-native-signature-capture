@@ -25,7 +25,15 @@ const commandNames = {
 }
 
 class SignaturePad extends React.Component {
-  dispatchCommand = (commandName) => {
+  constructor(props) {
+    super(props)
+
+    this.dispatchCommand = this.dispatchCommand.bind(this)
+    this.handleSaveEvent = this.handleSaveEvent.bind(this)
+    this.handleChange = this.handleSaveEvent.bind(this)
+  }
+
+  dispatchCommand(commandName) {
     const viewManagerConfig = "getViewManagerConfig" in UIManager
       ? UIManager.getViewManagerConfig(nativeComponentName)
       : UIManager[nativeComponentName]
@@ -45,7 +53,7 @@ class SignaturePad extends React.Component {
     this.dispatchCommand(commandNames.reset)
   }
 
-  handleChange = (event) => {
+  handleChange(event) {
     const { onSave, onDragEnd, onDragStart } = this.props
     const { nativeEvent: { eventType, ...eventArgs } } = event
 
@@ -64,7 +72,7 @@ class SignaturePad extends React.Component {
     }
   }
 
-  handleSaveEvent = (event) => {
+  handleSaveEvent(event) {
     const { nativeEvent } = event
     const { onSave } = this.props
 
@@ -120,4 +128,4 @@ SignaturePad.defaultProps = {
   onDragEnd: () => null,
 }
 
-export default SignaturePad;
+export default SignaturePad
