@@ -26,6 +26,16 @@ export interface SignaturePadProps extends ViewProps{
   onDragEnd?: () => void | Promise<void>
 }
 
-declare class SignaturePad extends React.Component<SignaturePadProps> {}
+declare class SignaturePad extends React.Component<SignaturePadProps> {
+  /**
+   * Initiates saving of the signature image.
+   */
+  public saveImage: () => void
+
+  /**
+   * Resets the signature canvas to the initial state.
+   */
+  public resetImage: () => void
+}
 
 export default SignaturePad
