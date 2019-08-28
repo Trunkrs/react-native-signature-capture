@@ -26,6 +26,6 @@ export interface SignaturePadProps extends ViewProps{
   onDragEnd?: () => void | Promise<void>
 }
 
-declare const SignaturePad: React.Component<SignaturePadProps>
+declare class SignaturePad extends React.Component<SignaturePadProps> {}
 
 export default SignaturePad

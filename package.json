@@ -1,7 +1,7 @@
 {
   "name": "@trunkrs/react-native-signature-capture",
   "title": "React Native Signature Pad",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "A native signature plugin for iOS and Android.",
   "main": "SignaturePad.js",
   "types": "SignaturePad.d.ts",
