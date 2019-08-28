@@ -1,11 +1,11 @@
-import React from 'react'
-import {
+const React = require('react')
+const {
   UIManager,
   View,
   findNodeHandle,
   requireNativeComponent,
-} from 'react-native'
-import PropTypes from 'prop-types'
+} = require('react-native')
+const PropTypes = require('prop-types')
 
 const nativeComponentName = "TRNSignaturePad"
 
