@@ -30,7 +30,7 @@ class SignaturePad extends React.Component {
 
     this.dispatchCommand = this.dispatchCommand.bind(this)
     this.handleSaveEvent = this.handleSaveEvent.bind(this)
-    this.handleChange = this.handleSaveEvent.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   dispatchCommand(commandName) {
