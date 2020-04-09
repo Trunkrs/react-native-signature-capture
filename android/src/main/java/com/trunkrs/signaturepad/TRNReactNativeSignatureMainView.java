@@ -71,6 +71,11 @@ public class TRNReactNativeSignatureMainView extends LinearLayout implements OnC
     public void setViewMode(String viewMode) {
         this.viewMode = viewMode;
 
+        // In some configs of Oreo this might cause process to crash
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+            return;
+        }
+
         if (viewMode.equalsIgnoreCase("portrait")) {
             mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else if (viewMode.equalsIgnoreCase("landscape")) {

@@ -12,8 +12,8 @@
 
 // Event props
 @property (nonatomic, copy) RCTBubblingEventBlock onSaveEvent;
-@property (nonatomic, copy) RCTBubblingEventBlock onDragStart;
-@property (nonatomic, copy) RCTBubblingEventBlock onDragEnd;
+@property (nonatomic, copy) RCTBubblingEventBlock onSignStart;
+@property (nonatomic, copy) RCTBubblingEventBlock onSignEnd;
 
 -(void) onSaveButtonPressed;
 -(void) onClearButtonPressed;

@@ -80,9 +80,13 @@ class SignaturePad extends React.Component {
   }
 
   render() {
+    const { onDragStart, onDragEnd } = this.props
+
     return (
       <TRNSignaturePad
         {...this.props}
+        onSignStart={onDragStart}
+        onSignEnd={onDragEnd}
         onSaveEvent={this.handleSaveEvent}
         onChange={this.handleChange}
       />

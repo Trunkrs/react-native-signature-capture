@@ -24,8 +24,8 @@ RCT_EXPORT_VIEW_PROPERTY(backgroundColor, UIColor)
 
 // Event Props
 RCT_EXPORT_VIEW_PROPERTY(onSaveEvent, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onDragStart, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onDragEnd, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onSignStart, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onSignEnd, RCTBubblingEventBlock)
 
 -(dispatch_queue_t) methodQueue
 {
@@ -66,20 +66,20 @@ RCT_EXPORT_METHOD(resetImage:(nonnull NSNumber *) reactTag)
 
 -(void) emitStartSigning
 {
-    if (!signView.onDragStart) {
+    if (!signView.onSignStart) {
         return;
     }
 
-    signView.onDragStart(nil);
+    signView.onSignStart(nil);
 }
 
 -(void) emitEndSigning
 {
-    if (!signView.onDragEnd) {
+    if (!signView.onSignEnd) {
         return;
     }
 
-    signView.onDragEnd(nil);
+    signView.onSignEnd(nil);
 }
 
 @end
